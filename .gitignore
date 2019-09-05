@@ -1,0 +1,7 @@
+.git/
+.terraform/
+*.tfvars
+terraform.tfstate*
+
+# ignore go files
+vendor/
