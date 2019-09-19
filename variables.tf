@@ -6,13 +6,13 @@ variable "create_cloudtrail" {
 variable "cloudtrail_name" {
   description = "Name of the trail to create"
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "cloudtrail_bucket" {
   description = "Name of S3 bucket to send CloudTrail logs; bucket must already exist"
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "tags" {
