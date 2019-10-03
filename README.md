@@ -8,7 +8,7 @@ Creates an AWS Cloudtrail
 |------|-------------|:----:|:-----:|:-----:|
 | cloudtrail\_bucket | Name of S3 bucket to send CloudTrail logs; bucket must already exist | string | `"null"` | no |
 | cloudtrail\_name | Name of the trail to create | string | `"null"` | no |
-| create\_cloudtrail | Controls whether to create the CloudTrail | string | `"true"` | no |
+| create\_cloudtrail | Controls whether to create the CloudTrail | bool | `"true"` | no |
 | tags | A map of tags to add to the cloudtrail resource | map(string) | `<map>` | no |
 
 ## Outputs
