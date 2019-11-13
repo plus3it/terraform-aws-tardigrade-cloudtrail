@@ -18,7 +18,7 @@ variable "cloudtrail_bucket" {
 
 variable "event_selectors" {
   description = "List of maps specifying `read_write_type`, `include_management_events`, `type`, and `values`. See https://www.terraform.io/docs/providers/aws/r/cloudtrail.html for more information regarding the map vales"
-  type        = "list"
+  type        = list
   default     = []
 }
 

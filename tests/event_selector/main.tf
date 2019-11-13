@@ -24,7 +24,7 @@ resource "aws_s3_bucket" "this" {
 data "template_file" "this" {
   count = local.create_cloudtrail ? 1 : 0
 
-  template = file("${path.module}/templates/cloudtrail-bucket-policy.json")
+  template = file("${path.module}/../templates/cloudtrail-bucket-policy.json")
 
   vars = {
     bucket    = random_id.name.hex
@@ -46,7 +46,9 @@ module "baseline" {
   event_selectors = [{
     "read_write_type"           = "All"
     "include_management_events" = true
-    "type"                      = "AWS::Lambda::Function"
-    "values"                    = ["arn:${data.aws_partition.current.partition}:lambda"]
+    "data_resources" = [{
+      "type"   = "AWS::Lambda::Function"
+      "values" = ["arn:${data.aws_partition.current.partition}:lambda"]
+    }]
   }]
 }
