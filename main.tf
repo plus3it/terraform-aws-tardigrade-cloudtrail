@@ -13,13 +13,21 @@ resource "aws_cloudtrail" "this" {
   is_multi_region_trail      = true
   tags                       = var.tags
 
-  event_selector {
-    read_write_type           = "All"
-    include_management_events = true
+  dynamic "event_selector" {
+    iterator = event_selectors
+    for_each = var.event_selectors
+    content {
+      read_write_type           = lookup(event_selectors.value, "read_write_type", "All")
+      include_management_events = lookup(event_selectors.value, "include_management_events", "true")
 
-    data_resource {
-      type   = "AWS::Lambda::Function"
-      values = ["arn:${data.aws_partition.current.partition}:lambda"]
+      dynamic "data_resource" {
+        iterator = data_resources
+        for_each = lookup(event_selectors.value, "data_resources", [])
+        content {
+          type   = lookup(data_resources.value, "type", null)
+          values = lookup(data_resources.value, "values", [])
+        }
+      }
     }
   }
 }
