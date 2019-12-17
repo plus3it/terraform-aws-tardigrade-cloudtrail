@@ -32,7 +32,7 @@ data "template_file" "this" {
   }
 }
 
-module "baseline" {
+module "multiple_event_selectors" {
   source = "../../"
 
   providers = {
