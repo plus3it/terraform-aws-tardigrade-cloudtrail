@@ -10,6 +10,12 @@ variable "cloudtrail_name" {
   default     = null
 }
 
+variable "kms_key_id" {
+  description = "ARN of the kms key used to encrypt the CloudTrail logs. If providing a KMS key, `create_kms_key` should be set to false"
+  type        = string
+  default     = null
+}
+
 variable "cloudtrail_bucket" {
   description = "Name of S3 bucket to send CloudTrail logs; bucket must already exist"
   type        = string

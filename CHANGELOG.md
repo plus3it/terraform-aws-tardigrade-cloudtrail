@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### 2.2.0
+
+**Released**: 2019.12.17
+
+**Commit Delta**: [Change from 2.1.0 release](https://github.com/plus3it/terraform-aws-tardigrade-cloudtrail/compare/2.1.0...2.2.0)
+
+**Summary**:
+
+*   Add kms encryption
+
 ### 2.1.0
 
 **Released**: 2019.12.05
