@@ -11,7 +11,7 @@ variable "cloudtrail_name" {
 }
 
 variable "kms_key_id" {
-  description = "ARN of the kms key used to encrypt the CloudTrail logs. If providing a KMS key, `create_kms_key` should be set to false"
+  description = "(Optional) ARN of the kms key used to encrypt the CloudTrail logs. If no ARN is provided, the module will create a KMS key to encrypt with"
   type        = string
   default     = null
 }
