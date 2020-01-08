@@ -14,3 +14,12 @@ output "cloudtrail_arn" {
   value       = join("", aws_cloudtrail.this.*.arn)
 }
 
+output "log_group" {
+  description = "The CloudWatch log group object created when no previous log group is declared"
+  value       = length(aws_cloudwatch_log_group.this) > 0 ? aws_cloudwatch_log_group.this[0] : null
+}
+
+output "kms_key_id" {
+  description = "The KMS Key ARN used to encrypt the logs"
+  value       = length(aws_cloudtrail.this) > 0 ? aws_cloudtrail.this[0].kms_key_id : null
+}

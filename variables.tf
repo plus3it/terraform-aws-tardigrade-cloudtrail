@@ -10,6 +10,12 @@ variable "cloudtrail_name" {
   default     = null
 }
 
+variable "kms_key_alias" {
+  description = "(Optional) The display name of the alias"
+  type        = string
+  default     = "terraform-cloudtrail-kms-key"
+}
+
 variable "kms_key_id" {
   description = "(Optional) ARN of the kms key used to encrypt the CloudTrail logs. If no ARN is provided, the module will create a KMS key to encrypt with"
   type        = string

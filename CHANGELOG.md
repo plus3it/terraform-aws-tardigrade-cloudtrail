@@ -4,11 +4,22 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### 2.2.3
+
+**Released**: 2020.01.08
+
+**Commit Delta**: [Change from 2.2.2 release](https://github.com/plus3it/terraform-aws-tardigrade-cloudtrail/compare/2.2.2...2.2.3)
+
+**Summary**:
+
+*   Add outputs for kms_key and log_group
+*   Expose kms_key_alias variable
+
 ### 2.2.2
 
 **Released**: 2020.01.02
 
-**Commit Delta**: [Change from 2.1.0 release](https://github.com/plus3it/terraform-aws-tardigrade-cloudtrail/compare/2.2.1...2.2.2)
+**Commit Delta**: [Change from 2.2.1 release](https://github.com/plus3it/terraform-aws-tardigrade-cloudtrail/compare/2.2.1...2.2.2)
 
 **Summary**:
 
@@ -18,7 +29,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 **Released**: 2020.01.02
 
-**Commit Delta**: [Change from 2.1.0 release](https://github.com/plus3it/terraform-aws-tardigrade-cloudtrail/compare/2.2.0...2.2.1)
+**Commit Delta**: [Change from 2.2.0 release](https://github.com/plus3it/terraform-aws-tardigrade-cloudtrail/compare/2.2.0...2.2.1)
 
 **Summary**:
 
