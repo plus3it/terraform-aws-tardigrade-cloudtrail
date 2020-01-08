@@ -12,14 +12,13 @@ locals {
 
   # kms integration
   create_kms_key = var.create_cloudtrail && var.kms_key_id == null
-  kms_key_alias  = "terraform-cloudtrail-kms-key"
-  kms_key_id     = local.create_kms_key ? module.kms.keys[local.kms_key_alias].arn : var.kms_key_id
+  kms_key_id     = local.create_kms_key ? module.kms.keys[var.kms_key_alias].arn : var.kms_key_id
   kms_key_policy = local.create_kms_key ? data.aws_iam_policy_document.kms_key_policy[0].json : ""
 
   keys = [
     {
-      alias               = local.kms_key_alias,
-      description         = local.kms_key_alias,
+      alias               = var.kms_key_alias,
+      description         = var.kms_key_alias,
       policy              = local.kms_key_policy,
       enable_key_rotation = true
     }
