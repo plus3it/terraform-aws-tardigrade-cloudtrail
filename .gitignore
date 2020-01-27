@@ -5,3 +5,10 @@ terraform.tfstate*
 
 # ignore go files
 vendor/
+
+# tardigrade-ci
+.tardigrade-ci
+tardigrade-ci/
+
+# eclint
+.git/
