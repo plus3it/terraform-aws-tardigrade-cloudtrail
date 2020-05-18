@@ -10,4 +10,5 @@ module "no_cloudtrail" {
   }
 
   create_cloudtrail = false
+  create_kms_key    = false
 }
