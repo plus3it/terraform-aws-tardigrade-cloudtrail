@@ -11,9 +11,8 @@ locals {
   cloud_watch_logs_role_arn = local.create_log_group_role ? join("", aws_iam_role.this.*.arn) : var.cloud_watch_logs_role_arn
 
   # kms integration
-  create_kms_key = var.create_cloudtrail && var.kms_key_id == null
-  kms_key_id     = local.create_kms_key ? module.kms.keys[var.kms_key_alias].arn : var.kms_key_id
-  kms_key_policy = local.create_kms_key ? data.aws_iam_policy_document.kms_key_policy[0].json : ""
+  kms_key_id     = var.create_kms_key ? module.kms.keys[var.kms_key_alias].arn : var.kms_key_id
+  kms_key_policy = var.create_kms_key ? data.aws_iam_policy_document.kms_key_policy[0].json : ""
 
   keys = [
     {
@@ -67,7 +66,7 @@ module "kms" {
     aws = aws
   }
 
-  create_keys = local.create_kms_key
+  create_keys = var.create_kms_key
   keys        = local.keys
 }
 
@@ -154,7 +153,7 @@ data "aws_iam_policy_document" "write_logs" {
 }
 
 data "aws_iam_policy_document" "kms_key_policy" {
-  count = local.create_kms_key ? 1 : 0
+  count = var.create_kms_key ? 1 : 0
 
   statement {
     sid     = "Enable IAM User Permissions"

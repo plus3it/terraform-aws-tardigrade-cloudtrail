@@ -10,6 +10,12 @@ variable "cloudtrail_name" {
   default     = null
 }
 
+variable "create_kms_key" {
+  description = "Controls whether to create a kms key that Cloudtrail will use to encrypt the logs"
+  type        = bool
+  default     = true
+}
+
 variable "kms_key_alias" {
   description = "(Optional) The display name of the alias"
   type        = string
@@ -17,7 +23,7 @@ variable "kms_key_alias" {
 }
 
 variable "kms_key_id" {
-  description = "(Optional) ARN of the kms key used to encrypt the CloudTrail logs. If no ARN is provided, the module will create a KMS key to encrypt with"
+  description = "(Optional) ARN of the kms key used to encrypt the CloudTrail logs."
   type        = string
   default     = null
 }

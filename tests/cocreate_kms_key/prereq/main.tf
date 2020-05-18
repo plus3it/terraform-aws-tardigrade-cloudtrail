@@ -3,9 +3,10 @@ provider "aws" {
 }
 
 locals {
-  create_cloudtrail = true
-  partition         = "aws"
+  partition = "aws"
 }
+
+data "aws_caller_identity" "current" {}
 
 resource "random_id" "name" {
   byte_length = 6
@@ -19,9 +20,7 @@ resource "aws_s3_bucket" "this" {
 }
 
 data "template_file" "this" {
-  count = local.create_cloudtrail ? 1 : 0
-
-  template = file("${path.module}/../templates/cloudtrail-bucket-policy.json")
+  template = file("${path.module}/../../templates/cloudtrail-bucket-policy.json")
 
   vars = {
     bucket    = random_id.name.hex
@@ -29,15 +28,10 @@ data "template_file" "this" {
   }
 }
 
-module "baseline" {
-  source = "../../"
+output "random_name" {
+  value = random_id.name.hex
+}
 
-  providers = {
-    aws = aws
-  }
-
-  create_cloudtrail = local.create_cloudtrail
-  create_kms_key    = false
-  cloudtrail_name   = random_id.name.hex
-  cloudtrail_bucket = aws_s3_bucket.this.id
+output "bucket_id" {
+  value = aws_s3_bucket.this.id
 }
