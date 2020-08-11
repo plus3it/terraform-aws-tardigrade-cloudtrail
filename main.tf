@@ -1,5 +1,3 @@
-provider "aws" {}
-
 ### LOCALS ###
 locals {
   # cloudwatch log group integration
