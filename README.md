@@ -9,12 +9,13 @@ Creates an AWS Cloudtrail
 | Name | Version |
 |------|---------|
 | terraform | >= 0.12 |
+| aws | >= 3.0.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | n/a |
+| aws | >= 3.0.0 |
 
 ## Inputs
 

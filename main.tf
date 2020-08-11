@@ -1,11 +1,9 @@
-provider "aws" {}
-
 ### LOCALS ###
 locals {
   # cloudwatch log group integration
   create_log_group            = var.cloud_watch_logs_group_name == null
   cloud_watch_logs_group_name = local.create_log_group ? "/aws/cloudtrail/${format("%v", var.cloudtrail_name)}" : var.cloud_watch_logs_group_name
-  cloud_watch_logs_group_arn  = local.create_log_group ? join("", aws_cloudwatch_log_group.this.*.arn) : data.aws_cloudwatch_log_group.this[0].arn
+  cloud_watch_logs_group_arn  = local.create_log_group ? "${join("", aws_cloudwatch_log_group.this.*.arn)}:*" : data.aws_cloudwatch_log_group.this[0].arn
 
   create_log_group_role     = var.cloud_watch_logs_role_arn == null
   cloud_watch_logs_role_arn = local.create_log_group_role ? join("", aws_iam_role.this.*.arn) : var.cloud_watch_logs_role_arn
