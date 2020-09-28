@@ -68,16 +68,16 @@ module "kms" {
   keys        = local.keys
 }
 
-
 resource "aws_cloudtrail" "this" {
   count = var.create_cloudtrail ? 1 : 0
 
-  name                       = var.cloudtrail_name
-  s3_bucket_name             = var.cloudtrail_bucket
-  enable_log_file_validation = true
-  is_multi_region_trail      = true
-  tags                       = var.tags
-  kms_key_id                 = local.kms_key_id
+  name                          = var.cloudtrail_name
+  s3_bucket_name                = var.cloudtrail_bucket
+  enable_log_file_validation    = var.enable_log_file_validation
+  include_global_service_events = var.include_global_service_events
+  is_multi_region_trail         = var.is_multi_region_trail
+  tags                          = var.tags
+  kms_key_id                    = local.kms_key_id
 
   cloud_watch_logs_group_arn = local.cloud_watch_logs_group_arn
   cloud_watch_logs_role_arn  = local.cloud_watch_logs_role_arn

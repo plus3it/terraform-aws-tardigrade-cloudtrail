@@ -16,6 +16,24 @@ variable "create_kms_key" {
   default     = true
 }
 
+variable "enable_log_file_validation" {
+  description = "Specifies whether log file integrity validation is enabled"
+  type        = bool
+  default     = true
+}
+
+variable "include_global_service_events" {
+  description = "Specifies whether the trail is publishing events from global services such as IAM to the log files"
+  type        = bool
+  default     = true
+}
+
+variable "is_multi_region_trail" {
+  description = "Specifies whether the trail is created in the current region or in all regions"
+  type        = bool
+  default     = true
+}
+
 variable "kms_key_alias" {
   description = "(Optional) The display name of the alias"
   type        = string
