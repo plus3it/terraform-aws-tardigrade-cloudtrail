@@ -28,7 +28,7 @@ Creates an AWS Cloudtrail
 | create\_cloudtrail | Controls whether to create the CloudTrail | `bool` | `true` | no |
 | create\_kms\_key | Controls whether to create a kms key that Cloudtrail will use to encrypt the logs | `bool` | `true` | no |
 | enable\_log\_file\_validation | Specifies whether log file integrity validation is enabled | `bool` | `true` | no |
-| event\_selectors | List of maps specifying `read_write_type`, `include_management_events`, `type`, and `values`. See https://www.terraform.io/docs/providers/aws/r/cloudtrail.html for more information regarding the map vales | `list` | `[]` | no |
+| event\_selectors | List of maps specifying `read_write_type`, `include_management_events`, `type`, and `values`. See https://www.terraform.io/docs/providers/aws/r/cloudtrail.html for more information regarding the map vales | `list(any)` | `[]` | no |
 | include\_global\_service\_events | Specifies whether the trail is publishing events from global services such as IAM to the log files | `bool` | `true` | no |
 | is\_multi\_region\_trail | Specifies whether the trail is created in the current region or in all regions | `bool` | `true` | no |
 | kms\_key\_alias | (Optional) The display name of the alias | `string` | `"terraform-cloudtrail-kms-key"` | no |
