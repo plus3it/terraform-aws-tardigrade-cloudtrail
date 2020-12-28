@@ -115,7 +115,7 @@ data "aws_caller_identity" "current" {
 }
 
 data "aws_cloudwatch_log_group" "this" {
-  count = var.create_cloudtrail && ! local.create_log_group ? 1 : 0
+  count = var.create_cloudtrail && !local.create_log_group ? 1 : 0
 
   name = var.cloud_watch_logs_group_name
 }
