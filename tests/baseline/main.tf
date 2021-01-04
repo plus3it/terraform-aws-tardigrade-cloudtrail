@@ -3,8 +3,7 @@ provider "aws" {
 }
 
 locals {
-  create_cloudtrail = true
-  partition         = "aws"
+  partition = "aws"
 }
 
 resource "random_id" "name" {
@@ -19,8 +18,6 @@ resource "aws_s3_bucket" "this" {
 }
 
 data "template_file" "this" {
-  count = local.create_cloudtrail ? 1 : 0
-
   template = file("${path.module}/../templates/cloudtrail-bucket-policy.json")
 
   vars = {
@@ -36,7 +33,6 @@ module "baseline" {
     aws = aws
   }
 
-  create_cloudtrail = local.create_cloudtrail
   create_kms_key    = false
   cloudtrail_name   = random_id.name.hex
   cloudtrail_bucket = aws_s3_bucket.this.id

@@ -1,9 +1,3 @@
-variable "create_cloudtrail" {
-  description = "Controls whether to create the CloudTrail"
-  type        = bool
-  default     = true
-}
-
 variable "cloudtrail_name" {
   description = "Name of the trail to create"
   type        = string

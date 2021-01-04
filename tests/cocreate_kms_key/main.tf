@@ -30,7 +30,6 @@ module "cocreate_kms_key" {
     aws = aws
   }
 
-  create_cloudtrail = true
   create_kms_key    = true
   cloudtrail_name   = data.terraform_remote_state.prereq.outputs.random_name
   cloudtrail_bucket = data.terraform_remote_state.prereq.outputs.bucket_id

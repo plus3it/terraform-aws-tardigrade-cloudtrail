@@ -25,7 +25,7 @@ locals {
 ### RESOURCES ###
 # Create CloudWatch Log Group
 resource "aws_cloudwatch_log_group" "this" {
-  count = var.create_cloudtrail && local.create_log_group ? 1 : 0
+  count = local.create_log_group ? 1 : 0
 
   name              = local.cloud_watch_logs_group_name
   retention_in_days = var.retention_in_days
@@ -33,7 +33,7 @@ resource "aws_cloudwatch_log_group" "this" {
 
 # Create IAM Policy
 resource "aws_iam_policy" "this" {
-  count = var.create_cloudtrail && local.create_log_group_role ? 1 : 0
+  count = local.create_log_group_role ? 1 : 0
 
   name   = var.cloudtrail_name
   policy = data.aws_iam_policy_document.write_logs[0].json
@@ -41,7 +41,7 @@ resource "aws_iam_policy" "this" {
 
 # Create IAM Role
 resource "aws_iam_role" "this" {
-  count = var.create_cloudtrail && local.create_log_group_role ? 1 : 0
+  count = local.create_log_group_role ? 1 : 0
 
   name               = var.cloudtrail_name
   assume_role_policy = data.aws_iam_policy_document.assume_role[0].json
@@ -50,7 +50,7 @@ resource "aws_iam_role" "this" {
 
 # Attach Policy to IAM Role
 resource "aws_iam_policy_attachment" "this" {
-  count = var.create_cloudtrail && local.create_log_group_role ? 1 : 0
+  count = local.create_log_group_role ? 1 : 0
 
   name       = var.cloudtrail_name
   roles      = [aws_iam_role.this[0].name]
@@ -69,7 +69,6 @@ module "kms" {
 }
 
 resource "aws_cloudtrail" "this" {
-  count = var.create_cloudtrail ? 1 : 0
 
   name                          = var.cloudtrail_name
   s3_bucket_name                = var.cloudtrail_bucket
@@ -102,26 +101,20 @@ resource "aws_cloudtrail" "this" {
 }
 
 ### DATA SOURCES ###
-data "aws_partition" "current" {
-  count = var.create_cloudtrail ? 1 : 0
-}
+data "aws_partition" "current" {}
 
-data "aws_region" "current" {
-  count = var.create_cloudtrail ? 1 : 0
-}
+data "aws_region" "current" {}
 
-data "aws_caller_identity" "current" {
-  count = var.create_cloudtrail ? 1 : 0
-}
+data "aws_caller_identity" "current" {}
 
 data "aws_cloudwatch_log_group" "this" {
-  count = var.create_cloudtrail && !local.create_log_group ? 1 : 0
+  count = !local.create_log_group ? 1 : 0
 
   name = var.cloud_watch_logs_group_name
 }
 
 data "aws_iam_policy_document" "assume_role" {
-  count = var.create_cloudtrail && local.create_log_group_role ? 1 : 0
+  count = local.create_log_group_role ? 1 : 0
 
   statement {
     actions = ["sts:AssumeRole"]
@@ -134,7 +127,7 @@ data "aws_iam_policy_document" "assume_role" {
 }
 
 data "aws_iam_policy_document" "write_logs" {
-  count = var.create_cloudtrail && local.create_log_group_role ? 1 : 0
+  count = local.create_log_group_role ? 1 : 0
 
   statement {
     sid = "WriteCloudWatchLogs"
@@ -145,7 +138,7 @@ data "aws_iam_policy_document" "write_logs" {
     ]
 
     resources = [
-      "arn:${data.aws_partition.current[0].partition}:logs:${data.aws_region.current[0].name}:${data.aws_caller_identity.current[0].account_id}:log-group:${local.cloud_watch_logs_group_name}:log-stream:*"
+      "arn:${data.aws_partition.current.partition}:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:${local.cloud_watch_logs_group_name}:log-stream:*"
     ]
   }
 }
@@ -179,7 +172,7 @@ data "aws_iam_policy_document" "kms_key_policy" {
       variable = "kms:EncryptionContext:aws:cloudtrail:arn"
 
       values = [
-        "arn:${data.aws_partition.current[0].partition}:cloudtrail:*:${data.aws_caller_identity.current[0].account_id}:trail/*"
+        "arn:${data.aws_partition.current.partition}:cloudtrail:*:${data.aws_caller_identity.current.account_id}:trail/*"
       ]
     }
 
@@ -215,7 +208,7 @@ data "aws_iam_policy_document" "kms_key_policy" {
       variable = "kms:EncryptionContext:aws:cloudtrail:arn"
 
       values = [
-        "arn:${data.aws_partition.current[0].partition}:cloudtrail:*:${data.aws_caller_identity.current[0].account_id}:trail/*"
+        "arn:${data.aws_partition.current.partition}:cloudtrail:*:${data.aws_caller_identity.current.account_id}:trail/*"
       ]
     }
 
@@ -224,7 +217,7 @@ data "aws_iam_policy_document" "kms_key_policy" {
       variable = "kms:CallerAccount"
 
       values = [
-        data.aws_caller_identity.current[0].account_id
+        data.aws_caller_identity.current.account_id
       ]
     }
 
