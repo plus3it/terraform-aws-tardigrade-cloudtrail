@@ -10,8 +10,7 @@ data "terraform_remote_state" "prereq" {
 }
 
 locals {
-  create_cloudtrail = true
-  partition         = "aws"
+  partition = "aws"
 }
 
 resource "random_id" "name" {
@@ -26,8 +25,6 @@ resource "aws_s3_bucket" "this" {
 }
 
 data "template_file" "this" {
-  count = local.create_cloudtrail ? 1 : 0
-
   template = file("${path.module}/../templates/cloudtrail-bucket-policy.json")
 
   vars = {
@@ -43,7 +40,6 @@ module "premade_cwl_group" {
     aws = aws
   }
 
-  create_cloudtrail           = local.create_cloudtrail
   cloudtrail_name             = random_id.name.hex
   cloudtrail_bucket           = aws_s3_bucket.this.id
   cloud_watch_logs_group_name = data.terraform_remote_state.prereq.outputs.cwl_group_name

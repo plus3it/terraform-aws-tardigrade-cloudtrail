@@ -25,7 +25,6 @@ Creates an AWS Cloudtrail
 | cloud\_watch\_logs\_role\_arn | (Optional) Specifies the role for the CloudWatch Logs endpoint to assume to write to a user’s log group. | `string` | `null` | no |
 | cloudtrail\_bucket | Name of S3 bucket to send CloudTrail logs; bucket must already exist | `string` | `null` | no |
 | cloudtrail\_name | Name of the trail to create | `string` | `null` | no |
-| create\_cloudtrail | Controls whether to create the CloudTrail | `bool` | `true` | no |
 | create\_kms\_key | Controls whether to create a kms key that Cloudtrail will use to encrypt the logs | `bool` | `true` | no |
 | enable\_log\_file\_validation | Specifies whether log file integrity validation is enabled | `bool` | `true` | no |
 | event\_selectors | List of maps specifying `read_write_type`, `include_management_events`, `type`, and `values`. See https://www.terraform.io/docs/providers/aws/r/cloudtrail.html for more information regarding the map vales | `list(any)` | `[]` | no |
