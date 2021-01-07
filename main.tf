@@ -60,16 +60,11 @@ resource "aws_iam_policy_attachment" "this" {
 module "kms" {
   source = "git::https://github.com/plus3it/terraform-aws-tardigrade-kms.git?ref=0.0.2"
 
-  providers = {
-    aws = aws
-  }
-
   create_keys = var.create_kms_key
   keys        = local.keys
 }
 
 resource "aws_cloudtrail" "this" {
-
   name                          = var.cloudtrail_name
   s3_bucket_name                = var.cloudtrail_bucket
   enable_log_file_validation    = var.enable_log_file_validation

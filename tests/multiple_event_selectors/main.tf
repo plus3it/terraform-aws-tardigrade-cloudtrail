@@ -32,10 +32,6 @@ data "template_file" "this" {
 module "multiple_event_selectors" {
   source = "../../"
 
-  providers = {
-    aws = aws
-  }
-
   cloudtrail_name   = random_id.name.hex
   cloudtrail_bucket = aws_s3_bucket.this.id
 

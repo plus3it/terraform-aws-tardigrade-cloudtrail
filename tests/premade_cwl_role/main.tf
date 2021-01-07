@@ -36,10 +36,6 @@ data "template_file" "this" {
 module "premade_cwl_role" {
   source = "../../"
 
-  providers = {
-    aws = aws
-  }
-
   cloudtrail_name             = random_id.name.hex
   cloudtrail_bucket           = aws_s3_bucket.this.id
   cloud_watch_logs_group_name = data.terraform_remote_state.prereq.outputs.cwl_group_name
