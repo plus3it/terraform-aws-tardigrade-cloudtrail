@@ -29,10 +29,6 @@ data "template_file" "this" {
 module "baseline" {
   source = "../../"
 
-  providers = {
-    aws = aws
-  }
-
   create_kms_key    = false
   cloudtrail_name   = random_id.name.hex
   cloudtrail_bucket = aws_s3_bucket.this.id

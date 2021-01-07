@@ -12,10 +12,6 @@ data "terraform_remote_state" "prereq" {
 module "premade_kms_key" {
   source = "../../"
 
-  providers = {
-    aws = aws
-  }
-
   cloudtrail_name   = data.terraform_remote_state.prereq.outputs.random_name
   cloudtrail_bucket = data.terraform_remote_state.prereq.outputs.bucket_id
   kms_key_id        = data.terraform_remote_state.prereq.outputs.kms_key_id
