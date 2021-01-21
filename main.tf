@@ -58,7 +58,7 @@ resource "aws_iam_policy_attachment" "this" {
 }
 
 module "kms" {
-  source = "git::https://github.com/plus3it/terraform-aws-tardigrade-kms.git?ref=1.0.0"
+  source = "git::https://github.com/plus3it/terraform-aws-tardigrade-kms.git?ref=2.0.0"
 
   create_keys = var.create_kms_key
   keys        = local.keys
