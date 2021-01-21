@@ -15,17 +15,15 @@ resource "random_id" "name" {
 
 resource "aws_s3_bucket" "this" {
   bucket        = random_id.name.hex
-  policy        = join("", data.template_file.this.*.rendered)
   force_destroy = true
-}
 
-data "template_file" "this" {
-  template = file("${path.module}/../../templates/cloudtrail-bucket-policy.json")
-
-  vars = {
-    bucket    = random_id.name.hex
-    partition = local.partition
-  }
+  policy = templatefile(
+    "${path.module}/../../templates/cloudtrail-bucket-policy.json",
+    {
+      bucket    = random_id.name.hex
+      partition = local.partition
+    }
+  )
 }
 
 output "random_name" {
