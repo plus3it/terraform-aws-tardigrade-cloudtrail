@@ -3,13 +3,13 @@ locals {
   # cloudwatch log group integration
   create_log_group            = var.cloud_watch_logs_group_name == null
   cloud_watch_logs_group_name = local.create_log_group ? "/aws/cloudtrail/${format("%v", var.cloudtrail_name)}" : var.cloud_watch_logs_group_name
-  cloud_watch_logs_group_arn  = local.create_log_group ? "${join("", aws_cloudwatch_log_group.this.*.arn)}:*" : data.aws_cloudwatch_log_group.this[0].arn
+  cloud_watch_logs_group_arn  = local.create_log_group ? "${aws_cloudwatch_log_group.this[0].arn}:*" : data.aws_cloudwatch_log_group.this[0].arn
 
   create_log_group_role     = var.cloud_watch_logs_role_arn == null
-  cloud_watch_logs_role_arn = local.create_log_group_role ? join("", aws_iam_role.this.*.arn) : var.cloud_watch_logs_role_arn
+  cloud_watch_logs_role_arn = local.create_log_group_role ? aws_iam_role.this[0].arn : var.cloud_watch_logs_role_arn
 
   # kms integration
-  kms_key_id     = var.create_kms_key ? module.kms.keys[var.kms_key_alias].arn : var.kms_key_id
+  kms_key_id     = var.create_kms_key ? module.kms[0].keys[var.kms_key_alias].arn : var.kms_key_id
   kms_key_policy = var.create_kms_key ? data.aws_iam_policy_document.kms_key_policy[0].json : ""
 
   keys = [
@@ -59,9 +59,9 @@ resource "aws_iam_policy_attachment" "this" {
 
 module "kms" {
   source = "git::https://github.com/plus3it/terraform-aws-tardigrade-kms.git?ref=2.0.0"
+  count  = var.create_kms_key ? 1 : 0
 
-  create_keys = var.create_kms_key
-  keys        = local.keys
+  keys = local.keys
 }
 
 resource "aws_cloudtrail" "this" {
