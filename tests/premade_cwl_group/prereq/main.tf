@@ -3,6 +3,11 @@ resource "random_id" "name" {
   prefix      = "terraform-cwl-"
 }
 
+resource "random_id" "tardigrade" {
+  byte_length = 6
+  prefix      = "tardigrade-cloudtrail-"
+}
+
 # Create CloudWatch Log Group
 resource "aws_cloudwatch_log_group" "this" {
   name = "Tardigrade/Cloudtrail/${random_id.name.hex}"
@@ -38,6 +43,10 @@ data "aws_iam_policy_document" "write_logs" {
       "arn:${data.aws_partition.current.partition}:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:${aws_cloudwatch_log_group.this.id}:log-stream:*"
     ]
   }
+}
+
+output "random_name" {
+  value = random_id.tardigrade.hex
 }
 
 output "cwl_group_name" {
