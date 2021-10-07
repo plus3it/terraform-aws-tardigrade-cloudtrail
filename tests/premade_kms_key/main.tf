@@ -1,7 +1,3 @@
-provider "aws" {
-  region = "us-east-1"
-}
-
 data "terraform_remote_state" "prereq" {
   backend = "local"
   config = {
@@ -11,6 +7,8 @@ data "terraform_remote_state" "prereq" {
 
 module "premade_kms_key" {
   source = "../../"
+
+  create_kms_key = false
 
   cloudtrail_name   = data.terraform_remote_state.prereq.outputs.random_name
   cloudtrail_bucket = data.terraform_remote_state.prereq.outputs.bucket_id

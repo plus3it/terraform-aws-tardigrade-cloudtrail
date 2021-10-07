@@ -1,7 +1,3 @@
-provider "aws" {
-  region = "us-east-1"
-}
-
 data "aws_caller_identity" "current" {}
 
 data "terraform_remote_state" "prereq" {
@@ -9,6 +5,10 @@ data "terraform_remote_state" "prereq" {
   config = {
     path = "prereq/terraform.tfstate"
   }
+}
+
+locals {
+  test_id = data.terraform_remote_state.prereq.outputs.random_name
 }
 
 resource "aws_kms_key" "this" {
@@ -23,8 +23,8 @@ resource "aws_kms_key" "this" {
 module "cocreate_kms_key" {
   source = "../../"
 
-  create_kms_key    = true
-  cloudtrail_name   = data.terraform_remote_state.prereq.outputs.random_name
+  create_kms_key    = false
+  cloudtrail_name   = local.test_id
   cloudtrail_bucket = data.terraform_remote_state.prereq.outputs.bucket_id
-  kms_key_id        = aws_kms_key.this.id
+  kms_key_id        = aws_kms_key.this.arn
 }
