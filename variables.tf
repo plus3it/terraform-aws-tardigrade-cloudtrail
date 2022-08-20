@@ -52,14 +52,8 @@ variable "cloudtrail_bucket" {
   default     = null
 }
 
-variable "use_existing_log_group" {
-  description = "Specifies whether to use an existing CloudWatch log group for this trail"
-  type        = bool
-  default     = false
-}
-
-variable "create_log_group" {
-  description = "Specifies whether to create a CloudWatch log group for this trail"
+variable "use_cloud_watch_logs" {
+  description = "Specifies whether to use a CloudWatch log group for this trail"
   type        = bool
   default     = true
 }

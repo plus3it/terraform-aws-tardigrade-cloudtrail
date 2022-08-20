@@ -31,6 +31,4 @@ module "premade_cwl_role" {
   cloud_watch_logs_group_name = data.terraform_remote_state.prereq.outputs.cwl_group_name
   cloud_watch_logs_role_arn   = data.terraform_remote_state.prereq.outputs.cwl_role_arn
   kms_key_alias               = local.test_id
-  use_existing_log_group      = true
-  create_log_group            = false
 }

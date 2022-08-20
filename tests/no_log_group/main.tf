@@ -26,8 +26,7 @@ module "baseline" {
   create_kms_key             = false
   cloudtrail_name            = random_id.name.hex
   cloudtrail_bucket          = aws_s3_bucket.this.id
-  use_existing_log_group     = false
-  create_log_group           = false
+  use_cloud_watch_logs       = false
   enable_log_file_validation = false
   enable_logging             = false
 }

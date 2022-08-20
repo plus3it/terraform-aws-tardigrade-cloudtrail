@@ -30,6 +30,4 @@ module "premade_cwl_group" {
   cloudtrail_bucket           = aws_s3_bucket.this.id
   cloud_watch_logs_group_name = data.terraform_remote_state.prereq.outputs.cwl_group_name
   kms_key_alias               = local.test_id
-  use_existing_log_group      = true
-  create_log_group            = false
 }
