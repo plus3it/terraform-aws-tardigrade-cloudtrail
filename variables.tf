@@ -17,7 +17,7 @@ variable "enable_log_file_validation" {
 }
 
 variable "enable_logging" {
-  description = "Specifies whether to enable CloudWatch logging if it is configured"
+  description = "Specifies whether to enable logging if it is configured"
   type        = bool
   default     = true
 }
