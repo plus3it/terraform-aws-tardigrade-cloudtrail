@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### 6.2.0
+
+**Released**: 2022.08.22
+
+**Commit Delta**: [Change from 6.0.0 release](https://github.com/plus3it/terraform-aws-tardigrade-cloudtrail/compare/6.1.0...6.0.0)
+
+**Summary**:
+
+*   Adds capabilty to set the s3_bucket_prefex
+
 ### 6.1.0
 
 **Released**: 2022.08.18

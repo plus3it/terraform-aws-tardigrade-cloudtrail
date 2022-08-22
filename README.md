@@ -54,6 +54,7 @@ AWS_PROFILE=xxx make terraform/pytest PYTEST_ARGS="-v --nomock"
 | <a name="input_kms_key_alias"></a> [kms\_key\_alias](#input\_kms\_key\_alias) | (Optional) The display name of the alias | `string` | `"terraform-cloudtrail-kms-key"` | no |
 | <a name="input_kms_key_id"></a> [kms\_key\_id](#input\_kms\_key\_id) | (Optional) ARN of the kms key used to encrypt the CloudTrail logs. | `string` | `null` | no |
 | <a name="input_retention_in_days"></a> [retention\_in\_days](#input\_retention\_in\_days) | (Optional) Specifies the number of days to retain log events in the log group. Only works if module creates the log group | `number` | `7` | no |
+| <a name="input_s3_key_prefix"></a> [s3\_key\_prefix](#input\_s3\_key\_prefix) | S3 key prefix that follows the name of the bucket you have designated for log file delivery | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to the cloudtrail resource | `map(string)` | `{}` | no |
 | <a name="input_use_cloud_watch_logs"></a> [use\_cloud\_watch\_logs](#input\_use\_cloud\_watch\_logs) | Specifies whether to use a CloudWatch log group for this trail | `bool` | `true` | no |
 
