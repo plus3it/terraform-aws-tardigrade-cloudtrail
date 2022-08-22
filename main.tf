@@ -67,6 +67,7 @@ module "kms" {
 resource "aws_cloudtrail" "this" {
   name                          = var.cloudtrail_name
   s3_bucket_name                = var.cloudtrail_bucket
+  s3_key_prefix                 = var.s3_key_prefix
   enable_log_file_validation    = var.enable_log_file_validation
   enable_logging                = var.enable_logging
   include_global_service_events = var.include_global_service_events

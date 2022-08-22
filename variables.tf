@@ -52,6 +52,12 @@ variable "cloudtrail_bucket" {
   default     = null
 }
 
+variable "s3_key_prefix" {
+  description = "S3 key prefix that follows the name of the bucket you have designated for log file delivery"
+  type        = string
+  default     = null
+}
+
 variable "use_cloud_watch_logs" {
   description = "Specifies whether to use a CloudWatch log group for this trail"
   type        = bool
