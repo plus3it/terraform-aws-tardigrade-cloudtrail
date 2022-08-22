@@ -1,11 +1,11 @@
 ### LOCALS ###
 locals {
   # cloudwatch log group integration
-  create_log_group            = var.cloud_watch_logs_group_name == null
+  create_log_group            = var.use_cloud_watch_logs ? var.cloud_watch_logs_group_name == null : false
   cloud_watch_logs_group_name = local.create_log_group ? "/aws/cloudtrail/${format("%v", var.cloudtrail_name)}" : var.cloud_watch_logs_group_name
-  cloud_watch_logs_group_arn  = local.create_log_group ? "${aws_cloudwatch_log_group.this[0].arn}:*" : data.aws_cloudwatch_log_group.this[0].arn
+  cloud_watch_logs_group_arn  = var.use_cloud_watch_logs ? local.create_log_group ? "${aws_cloudwatch_log_group.this[0].arn}:*" : "${data.aws_cloudwatch_log_group.this[0].arn}:*" : null
 
-  create_log_group_role     = var.cloud_watch_logs_role_arn == null
+  create_log_group_role     = var.use_cloud_watch_logs ? var.cloud_watch_logs_role_arn == null : false
   cloud_watch_logs_role_arn = local.create_log_group_role ? aws_iam_role.this[0].arn : var.cloud_watch_logs_role_arn
 
   # kms integration
@@ -68,13 +68,14 @@ resource "aws_cloudtrail" "this" {
   name                          = var.cloudtrail_name
   s3_bucket_name                = var.cloudtrail_bucket
   enable_log_file_validation    = var.enable_log_file_validation
+  enable_logging                = var.enable_logging
   include_global_service_events = var.include_global_service_events
   is_multi_region_trail         = var.is_multi_region_trail
   tags                          = var.tags
   kms_key_id                    = local.kms_key_id
 
-  cloud_watch_logs_group_arn = local.cloud_watch_logs_group_arn
-  cloud_watch_logs_role_arn  = local.cloud_watch_logs_role_arn
+  cloud_watch_logs_group_arn = var.use_cloud_watch_logs ? local.cloud_watch_logs_group_arn : null
+  cloud_watch_logs_role_arn  = var.use_cloud_watch_logs ? local.cloud_watch_logs_role_arn : null
 
   dynamic "event_selector" {
     iterator = event_selectors
@@ -103,7 +104,7 @@ data "aws_region" "current" {}
 data "aws_caller_identity" "current" {}
 
 data "aws_cloudwatch_log_group" "this" {
-  count = !local.create_log_group ? 1 : 0
+  count = var.use_cloud_watch_logs && !local.create_log_group ? 1 : 0
 
   name = var.cloud_watch_logs_group_name
 }

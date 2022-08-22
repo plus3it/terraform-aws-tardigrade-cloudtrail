@@ -47,6 +47,7 @@ AWS_PROFILE=xxx make terraform/pytest PYTEST_ARGS="-v --nomock"
 | <a name="input_cloudtrail_name"></a> [cloudtrail\_name](#input\_cloudtrail\_name) | Name of the trail to create | `string` | `null` | no |
 | <a name="input_create_kms_key"></a> [create\_kms\_key](#input\_create\_kms\_key) | Controls whether to create a kms key that Cloudtrail will use to encrypt the logs | `bool` | `true` | no |
 | <a name="input_enable_log_file_validation"></a> [enable\_log\_file\_validation](#input\_enable\_log\_file\_validation) | Specifies whether log file integrity validation is enabled | `bool` | `true` | no |
+| <a name="input_enable_logging"></a> [enable\_logging](#input\_enable\_logging) | Specifies whether to enable logging if it is configured | `bool` | `true` | no |
 | <a name="input_event_selectors"></a> [event\_selectors](#input\_event\_selectors) | List of maps specifying `read_write_type`, `include_management_events`, `type`, and `values`. See https://www.terraform.io/docs/providers/aws/r/cloudtrail.html for more information regarding the map vales | `list(any)` | `[]` | no |
 | <a name="input_include_global_service_events"></a> [include\_global\_service\_events](#input\_include\_global\_service\_events) | Specifies whether the trail is publishing events from global services such as IAM to the log files | `bool` | `true` | no |
 | <a name="input_is_multi_region_trail"></a> [is\_multi\_region\_trail](#input\_is\_multi\_region\_trail) | Specifies whether the trail is created in the current region or in all regions | `bool` | `true` | no |
@@ -54,6 +55,7 @@ AWS_PROFILE=xxx make terraform/pytest PYTEST_ARGS="-v --nomock"
 | <a name="input_kms_key_id"></a> [kms\_key\_id](#input\_kms\_key\_id) | (Optional) ARN of the kms key used to encrypt the CloudTrail logs. | `string` | `null` | no |
 | <a name="input_retention_in_days"></a> [retention\_in\_days](#input\_retention\_in\_days) | (Optional) Specifies the number of days to retain log events in the log group. Only works if module creates the log group | `number` | `7` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to the cloudtrail resource | `map(string)` | `{}` | no |
+| <a name="input_use_cloud_watch_logs"></a> [use\_cloud\_watch\_logs](#input\_use\_cloud\_watch\_logs) | Specifies whether to use a CloudWatch log group for this trail | `bool` | `true` | no |
 
 ## Outputs
 

@@ -16,6 +16,12 @@ variable "enable_log_file_validation" {
   default     = true
 }
 
+variable "enable_logging" {
+  description = "Specifies whether to enable logging if it is configured"
+  type        = bool
+  default     = true
+}
+
 variable "include_global_service_events" {
   description = "Specifies whether the trail is publishing events from global services such as IAM to the log files"
   type        = bool
@@ -44,6 +50,12 @@ variable "cloudtrail_bucket" {
   description = "Name of S3 bucket to send CloudTrail logs; bucket must already exist"
   type        = string
   default     = null
+}
+
+variable "use_cloud_watch_logs" {
+  description = "Specifies whether to use a CloudWatch log group for this trail"
+  type        = bool
+  default     = true
 }
 
 variable "cloud_watch_logs_group_name" {
