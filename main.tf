@@ -95,6 +95,28 @@ resource "aws_cloudtrail" "this" {
       }
     }
   }
+
+  dynamic "advanced_event_selector" {
+    iterator = advanced_event_selectors
+    for_each = var.advanced_event_selectors
+    content {
+      name = lookup(advanced_event_selectors.value, "name", null) //optional
+
+      dynamic "field_selector" {
+        iterator = field_selectors
+        for_each = lookup(advanced_event_selectors.value, "field_selectors", [])
+        content {
+          field           = lookup(field_selectors.value, "field", null)           //required
+          equals          = lookup(field_selectors.value, "equals", null)          //optional
+          not_equals      = lookup(field_selectors.value, "not_equals", null)      //optional
+          starts_with     = lookup(field_selectors.value, "starts_with", null)     //optional
+          not_starts_with = lookup(field_selectors.value, "not_starts_with", null) //optional
+          ends_with       = lookup(field_selectors.value, "ends_with", null)       //optional
+          not_ends_with   = lookup(field_selectors.value, "not_ends_with", null)   //optional
+        }
+      }
+    }
+  }
 }
 
 ### DATA SOURCES ###
