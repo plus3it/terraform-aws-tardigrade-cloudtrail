@@ -41,6 +41,7 @@ AWS_PROFILE=xxx make terraform/pytest PYTEST_ARGS="-v --nomock"
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_advanced_event_selectors"></a> [advanced\_event\_selectors](#input\_advanced\_event\_selectors) | Specifies an advanced event selector for enabling data event logging.  Contains an options name for the selector and a list of maps specifying field\_selectors. See https://www.terraform.io/docs/providers/aws/r/cloudtrail.html for more information regarding the field selectors | `list(any)` | `[]` | no |
 | <a name="input_cloud_watch_logs_group_name"></a> [cloud\_watch\_logs\_group\_name](#input\_cloud\_watch\_logs\_group\_name) | (Optional) Name of preexisting log group to use; by default the module will create a log group | `string` | `null` | no |
 | <a name="input_cloud_watch_logs_role_arn"></a> [cloud\_watch\_logs\_role\_arn](#input\_cloud\_watch\_logs\_role\_arn) | (Optional) Specifies the role for the CloudWatch Logs endpoint to assume to write to a user’s log group. | `string` | `null` | no |
 | <a name="input_cloudtrail_bucket"></a> [cloudtrail\_bucket](#input\_cloudtrail\_bucket) | Name of S3 bucket to send CloudTrail logs; bucket must already exist | `string` | `null` | no |

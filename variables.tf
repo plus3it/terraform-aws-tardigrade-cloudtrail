@@ -88,6 +88,12 @@ variable "event_selectors" {
   default     = []
 }
 
+variable "advanced_event_selectors" {
+  description = "Specifies an advanced event selector for enabling data event logging.  Contains an options name for the selector and a list of maps specifying field_selectors. See https://www.terraform.io/docs/providers/aws/r/cloudtrail.html for more information regarding the field selectors"
+  type        = list(any)
+  default     = []
+}
+
 variable "tags" {
   description = "A map of tags to add to the cloudtrail resource"
   type        = map(string)

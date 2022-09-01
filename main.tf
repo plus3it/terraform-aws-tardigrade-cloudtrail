@@ -79,18 +79,36 @@ resource "aws_cloudtrail" "this" {
   cloud_watch_logs_role_arn  = var.use_cloud_watch_logs ? local.cloud_watch_logs_role_arn : null
 
   dynamic "event_selector" {
-    iterator = event_selectors
     for_each = var.event_selectors
     content {
-      read_write_type           = lookup(event_selectors.value, "read_write_type", "All")
-      include_management_events = lookup(event_selectors.value, "include_management_events", "true")
+      read_write_type           = try(event_selector.value.read_write_type, "All")
+      include_management_events = try(event_selector.value.include_management_events, "true")
 
       dynamic "data_resource" {
-        iterator = data_resources
-        for_each = lookup(event_selectors.value, "data_resources", [])
+        for_each = try(event_selector.value.data_resources, [])
         content {
-          type   = lookup(data_resources.value, "type", null)
-          values = lookup(data_resources.value, "values", [])
+          type   = try(data_resource.value.type, null)
+          values = try(data_resource.value.values, [])
+        }
+      }
+    }
+  }
+
+  dynamic "advanced_event_selector" {
+    for_each = var.advanced_event_selectors
+    content {
+      name = try(advanced_event_selector.value.name, null) //optional
+
+      dynamic "field_selector" {
+        for_each = try(advanced_event_selector.value.field_selectors, [])
+        content {
+          field           = try(field_selector.value.field, null)           //required
+          equals          = try(field_selector.value.equals, null)          //optional
+          not_equals      = try(field_selector.value.not_equals, null)      //optional
+          starts_with     = try(field_selector.value.starts_with, null)     //optional
+          not_starts_with = try(field_selector.value.not_starts_with, null) //optional
+          ends_with       = try(field_selector.value.ends_with, null)       //optional
+          not_ends_with   = try(field_selector.value.not_ends_with, null)   //optional
         }
       }
     }
