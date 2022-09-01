@@ -6,12 +6,37 @@ updates:
     interval: daily
   open-pull-requests-limit: 10
 - package-ecosystem: terraform
-  directory: "/tests/no_cloudtrail"
+  directory: "/tests/baseline"
   schedule:
     interval: daily
   open-pull-requests-limit: 10
 - package-ecosystem: terraform
-  directory: "/tests/baseline"
+  directory: "/tests/cocreate_kms_key"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+- package-ecosystem: terraform
+  directory: "/tests/event_selector"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+- package-ecosystem: terraform
+  directory: "/tests/multiple_event_selectors"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+- package-ecosystem: terraform
+  directory: "/tests/premade_cwl_group"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+- package-ecosystem: terraform
+  directory: "/tests/premade_cwl_role"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+- package-ecosystem: terraform
+  directory: "/tests/premade_kms_key"
   schedule:
     interval: daily
   open-pull-requests-limit: 10
